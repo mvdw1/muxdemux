@@ -1,0 +1,7 @@
+Here a summary is listed with version info
+
+Version     | Summary/issues
+v0.1        | First version to test out the layout/stack up. Initial tests show it works well: can copy atleast 1GB in 3-3.5 seconds through the muxdemux between PC and Sandisk USB drive: without the muxdemux similar throughput 
+              is achieved.
+              Known issues: USB connector footprint chassis mounts in wrong location, need to be cut off. OTG not determined to be working yet
+v0.3        | Second (ordered) version, to be tested. After HW arrives and it works, the design files will be updated
