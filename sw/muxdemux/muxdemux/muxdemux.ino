@@ -6,14 +6,24 @@
 // JTAG adapter: Integrated USB JTAG
 // Partition Scheme: Default with spiffs (1.2MB APP/ 1.5MB SPIFFS)
 
+// (relevant) settings for XIAO RP2040
+// board: Seed XIAO RP2040
+#define BOARD_XIAO_RP2040
 
-
+#ifdef BOARD_ESP32_C3_SUPERMINI
 #define SEL_PIN 2
 #define OE_PIN 3
 #define BTN_PIN 4
 #define SEL_PWR_A_PIN 8
 #define SEL_PWR_B_PIN 7
-
+#endif
+#ifdef BOARD_XIAO_RP2040
+#define SEL_PIN D5
+#define OE_PIN D4
+#define BTN_PIN D8
+#define SEL_PWR_A_PIN D3
+#define SEL_PWR_B_PIN D2
+#endif
 #define VERSION "0.0.1" //TODO add e.g. git version 
 #define OK_CODE '1'
 #define ERR_CODE '2'
@@ -223,8 +233,18 @@ bool pressed = false;  // To track if the button was pressed
 unsigned long debounceDelay = 50;  // Debounce time in milliseconds
 unsigned long lastDebounceTime = 0;
 
-
+int ssstate  = 0;
 void loop() {
+//  ssstate ++;
+//if(ssstate > 200){
+//digitalWrite(SEL_PIN, HIGH);
+//
+//}
+//else{
+//  digitalWrite(SEL_PIN,LOW);
+//  
+//}
+//if(ssstate>400) ssstate = 0;
   // put your main code here, to run repeatedly:
   delay(10);
   //if (readButton()) {
