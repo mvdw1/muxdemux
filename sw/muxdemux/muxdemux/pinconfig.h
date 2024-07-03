@@ -1,0 +1,49 @@
+#pragma once
+#define BOARD_XIAO_RP2040
+
+#ifdef BOARD_ESP32_C3_SUPERMINI
+#define SEL_PIN 2
+#define OE_PIN 3
+#define BTN_PIN 4
+#define SEL_PWR_B_PIN 8
+#define SEL_PWR_C_PIN 7
+#define STATUS_LED_PIN
+#endif
+#ifdef BOARD_XIAO_RP2040
+
+#define VERSION_PIN_DEFAULT D7
+#define SEL_PIN_0p3 D5
+#define OE_PIN_0p3 D4
+#define BTN_PIN_0p3 D8
+#define SEL_PWR_B_PIN_0p3 D3
+#define SEL_PWR_C_PIN_0p3 D2
+#define STATUS_LED_PIN_0p3 D6
+#define VERSION_PIN_0p3 VERSION_PIN_DEFAULT
+#define BCSELECT_PIN_0p3 D10
+#define ENABLE_PIN_0p3 D9
+
+#endif
+
+enum
+{
+    SEL_PIN_INDEX,
+    OE_PIN_INDEX,
+    BTN_PIN_INDEX,
+    SEL_PWR_B_PIN_INDEX,
+    SEL_PWR_C_PIN_INDEX,
+    STATUS_LED_PIN_INDEX,
+    VERSION_PIN_INDEX,
+    BCSELECT_PIN_INDEX,
+    ENABLE_PIN_INDEX
+};
+
+const int PINMAP_0p3[9] = {
+    SEL_PIN_0p3,
+    OE_PIN_0p3,
+    BTN_PIN_0p3,
+    SEL_PWR_B_PIN_0p3,
+    SEL_PWR_C_PIN_0p3,
+    STATUS_LED_PIN_0p3,
+    VERSION_PIN_0p3,
+    BCSELECT_PIN_0p3,
+    ENABLE_PIN_0p3};

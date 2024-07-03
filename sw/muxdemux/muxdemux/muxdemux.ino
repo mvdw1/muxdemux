@@ -132,7 +132,7 @@ void setup()
 
   // Default: off, a-b
   enabled = OFF;
-  state = AB;
+  state = AC;
   setupPins();
   updateMode();
 }
@@ -144,10 +144,11 @@ bool voltageACActive = false;
 
 void updateMode()
 {
+  if(enabled) Serial.println("Mode enabled");
   if(state == AB){
-    connectAC();
-  }else if(state == AC){
     connectAB();
+  }else if(state == AC){
+    connectAC();
   }else{
     // Currently with state as type bool this is not possible,
     // Place here for future change datatype
@@ -162,31 +163,34 @@ void updateMode()
 }
 
 void connectAB(){
+
+  Serial.println("connect ab\n");
   // first power down
   enableVoltageBridge(false, false);
-  digitalWrite(PINMAP[OE_PIN_INDEX], LOW);
+  digitalWrite(PINMAP[OE_PIN_INDEX], HIGH);
   delay(50);
   digitalWrite(PINMAP[SEL_PIN_INDEX], LOW);
   // apply power if needed
   if(enabled == ON)
   {
     enableVoltageBridge(true, false);
-    digitalWrite(PINMAP[OE_PIN_INDEX], HIGH);
+    digitalWrite(PINMAP[OE_PIN_INDEX], LOW);
   }
   delay(50);
 }
 
 void connectAC(){
+  Serial.println("connect ac\n");
   // first power down
   enableVoltageBridge(false, false);
-  digitalWrite(PINMAP[OE_PIN_INDEX], LOW);
+  digitalWrite(PINMAP[OE_PIN_INDEX], HIGH);
   delay(50);
   digitalWrite(PINMAP[SEL_PIN_INDEX], HIGH);
   // apply power if needed
   if(enabled == ON)
   {
     enableVoltageBridge(false, true);
-    digitalWrite(PINMAP[OE_PIN_INDEX], HIGH);
+    digitalWrite(PINMAP[OE_PIN_INDEX], LOW);
   }
   delay(50);
 }
@@ -207,6 +211,8 @@ bool enableVoltageBridge(bool enableAB, bool enableAC)
   }
   else if (enableAB)
   {
+
+    Serial.println("Enable voltage AB");
     digitalWrite(PINMAP[SEL_PWR_C_PIN_INDEX], LOW);
     digitalWrite(PINMAP[SEL_PWR_B_PIN_INDEX], HIGH);
     voltageABActive = true;
@@ -214,6 +220,8 @@ bool enableVoltageBridge(bool enableAB, bool enableAC)
   }
   else if (enableAC)
   {
+
+    Serial.println("Enable voltage AC");
     digitalWrite(PINMAP[SEL_PWR_B_PIN_INDEX], LOW);
     digitalWrite(PINMAP[SEL_PWR_C_PIN_INDEX], HIGH);
     voltageABActive = false;
@@ -221,8 +229,9 @@ bool enableVoltageBridge(bool enableAB, bool enableAC)
   }
   else
   {
-    digitalWrite(PINMAP[SEL_PWR_B_PIN_INDEX], LOW);
-    digitalWrite(PINMAP[SEL_PWR_C_PIN_INDEX], LOW);
+    Serial.println("Disable voltage");
+    digitalWrite(PINMAP[SEL_PWR_B_PIN_INDEX], HIGH);
+    digitalWrite(PINMAP[SEL_PWR_C_PIN_INDEX], HIGH);
     voltageABActive = false;
     voltageACActive = false;
   }
@@ -273,7 +282,7 @@ void pressedH()
 void pressedS()
 {
   Serial.println("Current state:");
-  if (enabled)
+  if (enabled==ON)
   {
     Serial.println("Output: enabled");
   }
@@ -281,7 +290,7 @@ void pressedS()
   {
     Serial.println("Output: disabled");
   }
-  if (state)
+  if (state==AB)
   {
     Serial.println("Switch: AB");
   }
